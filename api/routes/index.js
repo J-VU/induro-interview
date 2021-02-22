@@ -130,19 +130,14 @@ router.delete('/robot', async (req, res) => {
 /** BATTLE & RESULT ROBOTO */
 router.post('/battle', async (req, res) => {
   const { robot, vs } = req.body
-  console.log(robot)
   try {
     /** Check if exists */
     let robotOne = await Robot.findOne({
       name: robot
     })
-    console.log(`${robotOne}`)
-
     let robotTwo = await Robot.findOne({
       name: vs
     })
-    console.log(`${robotOne} vs ${robotTwo}`)
-
     if (!robotOne || !robotTwo) {
       return res.status(400).json({
         error: true,
@@ -195,7 +190,6 @@ router.post('/battle', async (req, res) => {
         { new: true }
       )
       await r2_battle.save()
-
       return res.json({ r1_battle, r2_battle })
 
       /** PLAYER 2 WIN */
@@ -210,8 +204,6 @@ router.post('/battle', async (req, res) => {
         { new: true }
       )
       await r1_battle.save()
-      console.log(r1_battle)
-
       const r2_battle = await BattleResult.findOneAndUpdate(
         { name: vs },
         {
@@ -222,8 +214,6 @@ router.post('/battle', async (req, res) => {
         { new: true }
       )
       await r2_battle.save()
-      console.log(r2_battle)
-
       return res.json({ r1_battle, r2_battle })
     }
   } catch (err) {

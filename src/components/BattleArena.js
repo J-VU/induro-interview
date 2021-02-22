@@ -3,43 +3,21 @@ import RobotDB from '../utility/Axios'
 import { toast } from 'react-toastify'
 
 export default function BattleArena() {
-  let defaultRobot = [
-    {
-      _id: '6031c75921372639f61d7995',
-      name: 'First Robot',
-      color: 'NEAT',
-      attack: 2002,
-      defense: 9,
-      date: '2021-02-21T02:37:13.776Z',
-      __v: 0
-    },
-    {
-      _id: '6031d80b0fb6d340b627f08d',
-      name: 'Robot 1',
-      color: 'PURPLE',
-      attack: 100,
-      defense: 50,
-      date: '2021-02-21T03:48:27.897Z',
-      __v: 0
-    }
-  ]
+  let defaultRobot = [{}]
 
   const [robots, setRobots] = useState(defaultRobot)
 
   useEffect(() => {
     getData()
   }, [])
-
   const getData = async () => {
     const res = await RobotDB.get('/robots')
     setRobots(res.data)
   }
-
   const [{ name, vs }, setFormData] = useState({
     name: '',
     vs: ''
   })
-
   const [
     { name1, win1, loss1, name2, win2, loss2 },
     setBattleResult
@@ -51,11 +29,9 @@ export default function BattleArena() {
     loss1: '',
     loss2: ''
   })
-
   const robotList = robots.map((item) => (
     <option key={item.name}>{item.name}</option>
   ))
-
   const battleResult = (
     <Fragment>
       <div className='p-2 '>
@@ -74,7 +50,6 @@ export default function BattleArena() {
             </p>
           </div>
         </div>
-
         <div class='level card p-2 has-background-info has-text-white'>
           <span className='level-left has-text-weight-semibold'>
             {name2 ? name2 : 'Challenger'}
@@ -91,7 +66,6 @@ export default function BattleArena() {
       </div>
     </Fragment>
   )
-
   const onChange = (event) => {
     setFormData({
       name,
@@ -99,10 +73,8 @@ export default function BattleArena() {
       [event.target.name]: event.target.value
     })
   }
-
   const onSubmit = async (event) => {
     event.preventDefault()
-
     if (name === '' || vs === '') {
       toast.warning(`Need 2 people to fight.`)
       return
@@ -117,14 +89,13 @@ export default function BattleArena() {
       }
     }
     const body = JSON.stringify({ robot: name, vs })
-    console.log(`the body = ${body}`)
     try {
       const res = await RobotDB.post('/battle', body, config)
       const r1 = res.data.r1_battle
       const r2 = res.data.r2_battle
 
       if (res.status === 200) {
-        toast.success(`Robots fought`)
+        toast.success(`Robots battle complete, see battle results!`)
         setBattleResult({
           name1: r1.name,
           win1: r1.win,
@@ -178,7 +149,6 @@ export default function BattleArena() {
                 </select>
               </div>
             </div>
-
             <div className='mt-3 field'>
               <div className='control'>
                 <button type='submit' className='button is-primary'>
@@ -186,7 +156,6 @@ export default function BattleArena() {
                 </button>
               </div>
             </div>
-
             <div className='card'>{battleResult}</div>
           </form>
         </div>

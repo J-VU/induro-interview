@@ -1,52 +1,26 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import RobotDB from '../utility/Axios'
-import { toast } from 'react-toastify';
-
+import { toast } from 'react-toastify'
 
 export default function RoboHanger() {
-  let defaultRobot = [
-    {
-      _id: '6031c75921372639f61d7995',
-      name: 'First Robot',
-      color: 'NEAT',
-      attack: 2002,
-      defense: 9,
-      date: '2021-02-21T02:37:13.776Z',
-      __v: 0
-    },
-    {
-      _id: '6031d80b0fb6d340b627f08d',
-      name: 'Robot 1',
-      color: 'PURPLE',
-      attack: 100,
-      defense: 50,
-      date: '2021-02-21T03:48:27.897Z',
-      __v: 0
-    }
-  ]
-
+  let defaultRobot = [{}]
   const [robots, setRobots] = useState(defaultRobot)
-
   useEffect(() => {
     getData()
   }, [])
-
   const getData = async () => {
     const res = await RobotDB.get('/robots')
     setRobots(res.data)
   }
-
   const robotList = robots.map((item) => (
     <option key={item.name}>{item.name}</option>
   ))
-
   const [{ name, color, attack, defense }, setFormData] = useState({
     name: '',
     color: 'None',
     attack: '',
     defense: ''
   })
-
   const onChange = (event) => {
     setFormData({
       name,
@@ -55,12 +29,9 @@ export default function RoboHanger() {
       defense,
       [event.target.name]: event.target.value
     })
-    console.log(name, color, attack, defense)
   }
-
   const onSubmit = async (event) => {
     event.preventDefault()
-
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -70,11 +41,9 @@ export default function RoboHanger() {
     try {
       const res = await RobotDB.put('/robot', body, config)
       if (res.status === 200) {
-        console.log('Success!')
         toast.success(`Robot [ ${name} ] has been modified!`)
       }
     } catch (error) {
-      console.error('error')
       console.error(error.message)
     }
   }

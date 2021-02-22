@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import RobotDB from '../utility/Axios'
 
 const RobotFactory = () => {
@@ -9,7 +9,6 @@ const RobotFactory = () => {
     attack: '',
     defense: ''
   })
-
   const onChange = (event) => {
     setFormData({
       name,
@@ -18,9 +17,7 @@ const RobotFactory = () => {
       defense,
       [event.target.name]: event.target.value
     })
-    console.log(name, color, attack, defense)
   }
-
   const onSubmit = async (event) => {
     event.preventDefault()
     const config = {
@@ -38,6 +35,7 @@ const RobotFactory = () => {
       console.error(error.message)
     }
   }
+  
   return (
     <Fragment>
       <form onSubmit={(event) => onSubmit(event)}>
@@ -57,7 +55,6 @@ const RobotFactory = () => {
               />
             </div>
           </div>
-
           <div className='field'>
             <label className='label'>Color</label>
             <div className='control'>
@@ -78,7 +75,6 @@ const RobotFactory = () => {
               </div>
             </div>
           </div>
-
           <div className='field'>
             <label className='label'>Attack</label>
             <div className='control'>
@@ -93,7 +89,6 @@ const RobotFactory = () => {
               />
             </div>
           </div>
-
           <div className='field'>
             <label className='label'>Defense</label>
             <div className='control'>
@@ -108,7 +103,6 @@ const RobotFactory = () => {
               />
             </div>
           </div>
-
           <div className='field is-grouped'>
             <div className='control'>
               <button className='button is-link'>Submit</button>
