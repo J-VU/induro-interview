@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import NavBar from './components/NavBar'
 import RobotFactory from './components/RobotFactory'
@@ -7,7 +7,7 @@ import RoboHanger from './components/RoboHanger'
 import BattleArena from './components/BattleArena'
 
 import 'bulma/css/bulma.css'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {

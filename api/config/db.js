@@ -1,10 +1,7 @@
-const mongoose = require('mongoose');
-const config = require('config');
+const mongoose = require('mongoose')
 
 const db =
-  'mongodb+srv://induro:1234@indurotest.dujxs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-// const db = config.get('mongoURI');
-
+  'mongodb+srv://induro:1234@indurotest.dujxs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const connectDB = async () => {
   try {
     await mongoose.connect(db, {
@@ -12,14 +9,11 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false
-    });
-
-    console.log('--> MongoDB Connected.');
+    })
+    console.log('--> MongoDB Connected.')
   } catch (err) {
-    console.error(err.message);
-
-    process.exit(1);
+    console.error(err.message)
+    process.exit(1)
   }
-};
-
-module.exports = connectDB;
+}
+module.exports = connectDB
